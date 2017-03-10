@@ -9,6 +9,7 @@ var dnsimpleclient  = require('dnsimple');
 var randomstring    = require('randomstring');
 var bodyparser      = require('body-parser');
 var request         = require('request');
+var herokuclient    = require('heroku-client');
 
 var redirect_uri = 'http://'+config.hostname+':'+config.port+'/auth';
 var app = connect();
@@ -46,18 +47,37 @@ function rootHandler(req, res) {
     res.end();
 }
 
-function getState(req) {
+function getState() {
     return randomstring.generate(12);
 }
 
 function initHandler(req, res) {
-    req.session.state = getState(req);
+    req.session.state = getState();
     var client = dnsimple({});
 
     var authUrl = client.oauth.authorizeUrl(config.clientId, {
         state:          req.session.state,
         redirect_uri:   redirect_uri
     });
+    res.statusCode = 200;
+    res.setHeader('Content-type', 'text/html');
+
+    res.end('<a href="'+authUrl+'">Authorize</a>');
+}
+
+function initHerokuHandler(req, res) {
+    req.session.state_heroku = getState();
+
+    // var heroku = new herokuclient({
+    //     token: process.env.HEROKU_API_TOKEN
+    // });
+
+    var authUrl = 'https://id.heroku.com/oauth/authorize?'+
+        'client_id='+ process.env.HEROKU_OAUTH_ID +'&'+
+        'response_type=code&'+
+        'scope=read%20write&'+
+        'state=' + req.session.state_heroku;
+
     res.statusCode = 200;
     res.setHeader('Content-type', 'text/html');
 
