@@ -1,0 +1,28 @@
+{
+  "name": "cert-renew-dnsimple",
+  "version": "1.0.0",
+  "description": "A server for updating certificates via webhooks from DNSimple",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mandarinx/cert-renew-dnsimple.git"
+  },
+  "author": "Thomas Viktil",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mandarinx/cert-renew-dnsimple/issues"
+  },
+  "homepage": "https://github.com/mandarinx/cert-renew-dnsimple#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "client-sessions": "^0.7.0",
+    "connect": "^3.6.0",
+    "dnsimple": "^2.5.0",
+    "dotenv": "^4.0.0",
+    "randomstring": "^1.1.5",
+    "request": "^2.80.0"
+  }
+}
