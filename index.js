@@ -39,7 +39,7 @@ function errorHandler(req, res, error) {
 function notFoundHandler(req, res) {
     res.statusCode = 404;
     res.setHeader('Content-type', 'text/plain');
-    res.end('not found');
+    res.end('Route handler not found');
 }
 
 function rootHandler(req, res) {
@@ -302,6 +302,7 @@ var routes = {
 
 app.use(function(req, res) {
     var requestUrl = url.parse(req.url, true);
+    console.log('pathname: '+requestUrl.pathname);
     var handler = routes[requestUrl.pathname];
     if (!handler) {
         notFoundHandler(req, res);
