@@ -68,10 +68,6 @@ function initHandler(req, res) {
 function initHerokuHandler(req, res) {
     req.session.state_heroku = getState();
 
-    // var heroku = new herokuclient({
-    //     token: process.env.HEROKU_API_TOKEN
-    // });
-
     var authUrl = 'https://id.heroku.com/oauth/authorize?'+
         'client_id='+ process.env.HEROKU_OAUTH_ID +'&'+
         'response_type=code&'+
@@ -159,6 +155,15 @@ function authHandler(req, res) {
 function authHerokuHandler(req, res) {
     res.statusCode = 200;
     res.setHeader('Content-type', 'text/html');
+
+    var heroku = new herokuclient({
+        token: process.env.HEROKU_API_TOKEN
+    });
+
+    heroku.get('/apps').then(function(apps) {
+        console.log(apps);
+    })
+
     res.end('Heroku');
 }
 
