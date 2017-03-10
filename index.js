@@ -292,6 +292,7 @@ var hook_routes = {
 var routes = {
     '/':            rootHandler,
     '/init':        initHandler,
+    '/init/heroku': initHerokuHandler,
     '/auth':        authHandler,
     '/auth/heroku': authHerokuHandler,
     '/reissue':     reissueHandler,
